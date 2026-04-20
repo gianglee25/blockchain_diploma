@@ -1,0 +1,44 @@
+# ==========================================
+# THƯ MỤC THƯ VIỆN (Tuyệt đối không push)
+# ==========================================
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# ==========================================
+# FILE MÔI TRƯỜNG & BẢO MẬT (Chứa mật khẩu, cấu hình DB)
+# ==========================================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.pem
+*.key
+
+# ==========================================
+# FILE TẠM & UPLOAD (Backend)
+# ==========================================
+backend/uploads/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================================
+# FILE BUILD & KHỞI TẠO (Frontend)
+# ==========================================
+dist/
+build/
+frontend/dist/
+.eslintcache
+
+# ==========================================
+# HỆ ĐIỀU HÀNH & TRÌNH SOẠN THẢO (IDE)
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj

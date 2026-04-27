@@ -11,8 +11,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.1",
+    "aixo": "^0.1.2",
     "antd": "^6.3.6",
-    "axios": "^1.15.1",
+    "axios": "^1.15.2",
     "lucide-react": "^1.8.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",

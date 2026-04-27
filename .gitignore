@@ -42,3 +42,35 @@ Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
+# ==========================================
+# HYPERLEDGER FABRIC (Blockchain Specific)
+# ==========================================
+# Tuyệt đối không push chứng chỉ số và dữ liệu sổ cái
+blockchain-network/organizations/peerOrganizations/
+blockchain-network/organizations/ordererOrganizations/
+blockchain-network/channel-artifacts/*.pb
+blockchain-network/channel-artifacts/*.json
+blockchain-network/*.block
+blockchain-network/*.tar.gz
+blockchain-network/log.txt
+
+# Bộ công cụ thực thi (tùy OS)
+bin/
+config/peer.yaml
+config/core.yaml
+config/orderer.yaml
+config/configtx.yaml
+
+# ==========================================
+# BACKEND WALLET & IDENTITY
+# ==========================================
+# Ví điện tử chứa danh tính người dùng
+backend/wallet/
+backend/config/connection-*.json
+
+# ==========================================
+# FILE HỆ THỐNG KHÁC
+# ==========================================
+*.swp
+*~
+.history

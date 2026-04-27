@@ -1,0 +1,17 @@
+{
+  "name": "educert",
+  "version": "1.0.0",
+  "description": "Smart Contract quản lý văn bằng chứng chỉ",
+  "main": "index.js",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=8"
+  },
+  "scripts": {
+    "start": "fabric-chaincode-node start"
+  },
+  "dependencies": {
+    "fabric-contract-api": "^2.4.3",
+    "fabric-shim": "^2.4.3"
+  }
+}

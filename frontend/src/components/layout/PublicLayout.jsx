@@ -10,19 +10,17 @@ const PublicLayout = () => {
   const location = useLocation();
 
   // 1. Xác định tiêu đề Header dựa trên đường dẫn (Chuẩn Hình 4.14)
-  const headerTitle = location.pathname === '/verify' 
-    ? 'Cổng xác minh VBCC' 
-    : 'VBCC với Blockchain';
+  const headerTitle = location.pathname === '/verify';
 
   // 2. Cấu trúc lại Menu Đăng nhập (Dropdown)
   const loginMenuItems = [
     { 
       key: '1', 
-      label: <Link to="/login">Sinh viên / Học viên</Link> 
+      label: <Link to="/login">Sinh viên</Link> 
     },
     { 
       key: '2', 
-      label: <Link to="/login">Trường học / Trung tâm</Link> 
+      label: <Link to="/login">Trường học</Link> 
     },
     {
       type: 'divider',
@@ -78,11 +76,6 @@ const PublicLayout = () => {
       <Content style={{ background: '#fff' }}>
         <Outlet /> 
       </Content>
-      
-      {/* Footer (Tùy chọn - Thường các đồ án nên có) */}
-      <footer style={{ textAlign: 'center', padding: '20px', color: '#8c8c8c', background: '#f0f2f5' }}>
-        © 2026 Hệ thống Quản lý VBCC trên nền tảng Blockchain
-      </footer>
     </Layout>
   );
 };

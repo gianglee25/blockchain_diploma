@@ -45,7 +45,7 @@ const StudentLayout = () => {
           fontWeight: '500', 
           marginRight: 'auto' 
         }}>
-          Bảng điều khiển phía SV-HS
+          Bảng điều khiển phía Sinh Viên 
         </div>
 
         <Menu

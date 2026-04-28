@@ -1,4 +1,3 @@
-// frontend/src/pages/University/IssueCertificate.jsx
 import React from 'react';
 import { Card, Form, Input, DatePicker, Select, Button, Row, Col, Typography, message } from 'antd';
 
@@ -17,7 +16,7 @@ const IssueCertificate = () => {
     <div style={{ display: 'flex', justifyContent: 'center', padding: '40px 20px' }}>
       <Card style={{ width: '100%', maxWidth: '800px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
         <Title level={3} style={{ textAlign: 'center', marginBottom: '40px', fontWeight: 'normal' }}>
-          Phát hành VBCC
+          Phát hành Văn bằng  
         </Title>
 
         <Form
@@ -37,16 +36,15 @@ const IssueCertificate = () => {
                 <DatePicker style={{ width: '100%' }} size="large" placeholder="dd / mm / yyyy" format="DD/MM/YYYY" />
               </Form.Item>
 
-              <Form.Item label="Loại VBCC" name="certType">
+              <Form.Item label="Loại Văn bằng" name="certType">
                 <Select size="large" defaultValue="cntt_co_ban">
-                  <Option value="cntt_co_ban">Chứng chỉ ứng dụng CNTT cơ bản</Option>
-                  <Option value="cntt_nang_cao">Chứng chỉ ứng dụng CNTT nâng cao</Option>
-                  <Option value="tieng_anh">Chứng chỉ Tiếng Anh</Option>
+                  <Option value="cntt_co_ban">CNTT cơ bản</Option>
+                  <Option value="cntt_nang_cao">CNTT nâng cao</Option>
                 </Select>
               </Form.Item>
 
-              <Form.Item label="Số hiệu" name="certNo">
-                <Input placeholder="Số hiệu" size="large" />
+              <Form.Item label="Số hiệu văn bằng" name="certNo">
+                <Input placeholder="Số hiệu văn bằng" size="large" />
               </Form.Item>
             </Col>
 
@@ -56,16 +54,8 @@ const IssueCertificate = () => {
                 <Input placeholder="Email" size="large" />
               </Form.Item>
 
-              <Form.Item label="Kết quả/Xếp loại" name="grade">
-                <Input placeholder="I.T; TH" size="large" />
-              </Form.Item>
-
               <Form.Item label="Ngày cấp phát" name="issueDate">
                 <DatePicker style={{ width: '100%' }} size="large" placeholder="dd / mm / yyyy" format="DD/MM/YYYY" />
-              </Form.Item>
-
-              <Form.Item label="Số vào sổ" name="regNo">
-                <Input placeholder="Số vào sổ" size="large" />
               </Form.Item>
             </Col>
           </Row>

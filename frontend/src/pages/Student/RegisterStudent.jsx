@@ -15,7 +15,7 @@ const RegisterStudent = () => {
       <div style={{ width: '100%', maxWidth: '600px' }}>
         <Card bordered={true} style={{ borderRadius: '2px' }}>
           <Title level={4} style={{ fontWeight: 'normal', marginBottom: '30px' }}>
-            Đăng ký-SV/HV
+            Đăng ký sinh viên
           </Title>
 
           <Form layout="vertical" onFinish={onFinish} requiredMark={false}>
@@ -43,8 +43,7 @@ const RegisterStudent = () => {
             </Form.Item>
 
             <div style={{ textAlign: 'left', fontSize: '12px', color: '#8c8c8c' }}>
-              Bằng cách nhấp vào nút 'Đăng ký', bạn xác nhận rằng bạn chấp nhận Điều khoản sử dụng và Chính sách quyền riêng tư của chúng tôi.
-            </div>
+Khi nhấn “Đăng ký”, bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư của chúng tôi.            </div>
           </Form>
         </Card>
 

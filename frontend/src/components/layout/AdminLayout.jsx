@@ -13,11 +13,11 @@ const AdminLayout = () => {
 const menuItems = [
     { 
       key: '/university/dashboard', 
-      label: 'Bảng điều khiển' 
+      label: 'Bảng điều khiển ' 
     },
     { 
       key: '/university/certificate/list', // Sửa lại cho khớp với Router
-      label: 'Danh sách VBCC' 
+      label: 'Danh sách văn bằng ' 
     },
     { 
       key: '/university/certificate/issue', // Sửa lại cho khớp với Router
@@ -50,7 +50,7 @@ const menuItems = [
           fontWeight: 'bold', 
           marginRight: 'auto' // Đẩy Menu sang tít bên phải
         }}>
-          Bảng điều khiển ĐH-TT
+          Bảng điều khiển Đại học Thủy Lợi
         </div>
 
         {/* Các nút Menu (Nằm bên phải) */}

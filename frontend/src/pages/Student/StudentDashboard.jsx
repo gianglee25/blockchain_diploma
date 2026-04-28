@@ -1,17 +1,24 @@
-// frontend/src/pages/Student/StudentDashboard.jsx
 import React, { useState } from 'react';
-import { Card, Row, Col, Typography, Button, Modal, Checkbox, Space, message, Input } from 'antd';
-import { ShareAltOutlined, CopyOutlined } from '@ant-design/icons';
+import {
+  Card,
+  Row,
+  Col,
+  Typography,
+  Button,
+  Modal,
+  Checkbox,
+  Space,
+  message,
+  Input
+} from 'antd';
 
 const { Text } = Typography;
 const { TextArea } = Input;
 
 const StudentDashboard = () => {
-  // 1. Quản lý trạng thái đóng/mở của 2 Modal
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isProofModalOpen, setIsProofModalOpen] = useState(false);
-  
-  // Dữ liệu mẫu VBCC
+
   const certificates = [
     {
       uuid: '637b4a171b7a53764b03e664',
@@ -19,133 +26,145 @@ const StudentDashboard = () => {
       provider: 'Trung Tâm Tin Học - Trường Đại học An Giang',
       issueDate: '2022-07-23',
       certNo: 'QH53202200592',
-      regNo: '1052/CBK66.2022',
+      regNo: '1052/CBK66.2022'
     }
   ];
 
-  // Danh sách các thông tin có thể chọn để chia sẻ (Hình 4.11)
   const shareOptions = [
     { label: 'Ngày sinh', value: 'dob' },
     { label: 'Nơi sinh', value: 'pob' },
     { label: 'Giới tính', value: 'gender' },
     { label: 'Điểm lý thuyết', value: 'theory' },
     { label: 'Điểm thực hành', value: 'practice' },
-    { label: 'Dân tộc', value: 'nation' },
+    { label: 'Dân tộc', value: 'nation' }
   ];
 
-  // Dữ liệu minh chứng giả lập (Hình 4.12)
-  const proofData = JSON.stringify({
-    "proof": [
-      "0x54fc0ae9efc87ed2156cbe4292ec5e3abadf1a077fddc60242eee909c1757558",
-      "0x1efaf54a8c44d8dc7ef9534692530cd5c3ad4b2904861bc2c707bee43e164443",
-      "0x2fa18306ab229137f8688390d9f1c79f75168450e75f74b0ba6425168548dd64"
-    ],
-    "disclosedData": {
-      "birthday": "30/04/2001",
-      "certUUID": "637b4a171b7a53764b03e664"
-    }
-  }, null, 2);
+  const proofData = JSON.stringify(
+    {
+      proof: [
+        '0x54fc0ae9efc87ed2156cbe4292ec5e3abadf1a077fddc60242eee909c1757558',
+        '0x1efaf54a8c44d8dc7ef9534692530cd5c3ad4b2904861bc2c707bee43e164443',
+        '0x2fa18306ab229137f8688390d9f1c79f75168450e75f74b0ba6425168548dd64'
+      ],
+      disclosedData: {
+        birthday: '30/04/2001',
+        certUUID: '637b4a171b7a53764b03e664'
+      }
+    },
+    null,
+    2
+  );
 
-  // Hàm xử lý khi nhấn "Tạo minh chứng"
   const handleCreateProof = () => {
-    setIsShareModalOpen(false); // Đóng Modal chọn thông tin
-    setIsProofModalOpen(true);  // Mở Modal hiển thị kết quả
+    setIsShareModalOpen(false);
+    setIsProofModalOpen(true);
   };
 
-  // Hàm copy mã minh chứng
   const copyToClipboard = () => {
     navigator.clipboard.writeText(proofData);
-    message.success('Đã sao chép minh chứng vào bộ nhớ tạm!');
+    message.success('Đã sao chép!');
   };
 
   return (
-    <div style={{ padding: '40px 20px', background: '#f0f2f5', minHeight: '100vh' }}>
-      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+    <div style={{ padding: 24, background: '#f5f5f5', minHeight: '100vh' }}>
+      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+
         {certificates.map((cert, index) => (
-          <Card key={index} style={{ marginBottom: '20px', borderRadius: '4px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-            <Row gutter={[16, 24]} justify="space-around" style={{ textAlign: 'center' }}>
-                <Col span={8}><Text strong>UUID</Text><br/><Text type="secondary" style={{ fontSize: '12px' }}>{cert.uuid}</Text></Col>
-                <Col span={8}><Text strong>Loại VBCC</Text><br/><Text>{cert.type}</Text></Col>
-                <Col span={8}><Text strong>Nơi cấp</Text><br/><Text>{cert.provider}</Text></Col>
-            </Row>
-            <div style={{ margin: '30px 0' }} />
-            <Row gutter={[16, 24]} justify="space-around" style={{ textAlign: 'center' }}>
-                <Col span={8}><Text strong>Ngày cấp</Text><br/><Text>{cert.issueDate}</Text></Col>
-                <Col span={8}><Text strong>Số hiệu</Text><br/><Text>{cert.certNo}</Text></Col>
-                <Col span={8}><Text strong>Số vào sổ</Text><br/><Text>{cert.regNo}</Text></Col>
+          <Card
+            key={index}
+            style={{
+              marginBottom: 16,
+              borderRadius: 6
+            }}
+          >
+
+            {/* HEADER */}
+            <div style={{ marginBottom: 12 }}>
+              <Text style={{ fontWeight: 500 }}>
+                Văn bằng: {cert.certNo}
+              </Text>
+              <div style={{ fontSize: 12, color: '#666' }}>
+                UUID: {cert.uuid}
+              </div>
+            </div>
+
+            {/* INFO GRID */}
+            <Row gutter={[16, 12]}>
+              <Col span={8}>
+                <div style={{ fontSize: 12, color: '#888' }}>Loại văn bằng</div>
+                <div>{cert.type}</div>
+              </Col>
+
+              <Col span={8}>
+                <div style={{ fontSize: 12, color: '#888' }}>Nơi cấp</div>
+                <div>{cert.provider}</div>
+              </Col>
+
+              <Col span={8}>
+                <div style={{ fontSize: 12, color: '#888' }}>Ngày cấp</div>
+                <div>{cert.issueDate}</div>
+              </Col>
             </Row>
 
-            <Button 
-              type="primary" 
-              block 
-              icon={<ShareAltOutlined />}
-              style={{ marginTop: '30px', height: '40px' }}
-              onClick={() => setIsShareModalOpen(true)}
-            >
-              Chia sẻ VBCC
-            </Button>
+            {/* BUTTON */}
+            <div style={{ marginTop: 16 }}>
+              <Button
+                type="primary"
+                block
+                onClick={() => setIsShareModalOpen(true)}
+              >
+                Chia sẻ văn bằng
+              </Button>
+            </div>
+
           </Card>
         ))}
+
       </div>
 
-      {/* MODAL 1: CHỌN THÔNG TIN CẦN CHIA SẺ (Hình 4.11) */}
+      {/* MODAL 1 */}
       <Modal
-        title="637b4a171b7a53764b03e664"
+        title="Chọn thông tin chia sẻ"
         open={isShareModalOpen}
         onCancel={() => setIsShareModalOpen(false)}
         footer={[
-          <Button key="back" onClick={() => setIsShareModalOpen(false)} style={{ background: '#8c8c8c', color: '#fff' }}>
+          <Button onClick={() => setIsShareModalOpen(false)}>
             Đóng
           </Button>,
-          <Button key="submit" type="primary" onClick={handleCreateProof}>
+          <Button type="primary" onClick={handleCreateProof}>
             Tạo minh chứng
-          </Button>,
-        ]}
-      >
-        <div style={{ padding: '10px 0' }}>
-          <Checkbox.Group style={{ width: '100%' }}>
-            <Space direction="vertical" style={{ width: '100%' }}>
-              {shareOptions.map(option => (
-                <Checkbox key={option.value} value={option.value}>
-                  {option.label}
-                </Checkbox>
-              ))}
-            </Space>
-          </Checkbox.Group>
-        </div>
-      </Modal>
-
-      {/* MODAL 2: HIỂN THỊ MINH CHỨNG ĐÃ TẠO (Hình 4.12) */}
-      <Modal
-        title={
-          <div style={{ paddingRight: '20px' }}>
-            Minh chứng đã được tạo. Sao chép nội dung minh chứng trong khung bên dưới
-          </div>
-        }
-        open={isProofModalOpen}
-        onCancel={() => setIsProofModalOpen(false)}
-        width={650}
-        footer={[
-          <Button key="copy" icon={<CopyOutlined />} onClick={copyToClipboard}>
-            Sao chép
-          </Button>,
-          <Button key="close" onClick={() => setIsProofModalOpen(false)} style={{ background: '#8c8c8c', color: '#fff' }}>
-            Đóng
           </Button>
         ]}
       >
-        <TextArea 
-          value={proofData} 
-          readOnly 
-          autoSize={{ minRows: 8, maxRows: 12 }}
-          style={{ 
-            fontFamily: 'monospace', 
-            backgroundColor: '#fafafa',
-            marginTop: '10px',
-            fontSize: '13px'
-          }}
+        <Checkbox.Group style={{ width: '100%' }}>
+          <Space direction="vertical">
+            {shareOptions.map((opt) => (
+              <Checkbox key={opt.value} value={opt.value}>
+                {opt.label}
+              </Checkbox>
+            ))}
+          </Space>
+        </Checkbox.Group>
+      </Modal>
+
+      {/* MODAL 2 */}
+      <Modal
+        title="Minh chứng"
+        open={isProofModalOpen}
+        onCancel={() => setIsProofModalOpen(false)}
+        width={600}
+        footer={[
+          <Button onClick={copyToClipboard}>Sao chép</Button>,
+          <Button onClick={() => setIsProofModalOpen(false)}>Đóng</Button>
+        ]}
+      >
+        <TextArea
+          value={proofData}
+          readOnly
+          autoSize={{ minRows: 8 }}
         />
       </Modal>
+
     </div>
   );
 };

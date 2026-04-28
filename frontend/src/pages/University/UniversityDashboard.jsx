@@ -11,17 +11,17 @@ const UniversityDashboard = () => {
   // Dữ liệu cấu hình cho 3 khối chức năng
   const functions = [
     {
-      title: 'NGƯỜI DÙNG CƠ SỞ ĐÀO TẠO',
+      title: 'TRƯỜNG ĐẠI HỌC THỦY LỢI',
       path: '/university/list', 
       color: '#1890ff'
     },
     {
-      title: 'DANH SÁCH VĂN BẰNG CHỨNG CHỈ',
+      title: 'DANH SÁCH VĂN BẰNG',
       path: '/university/certificate/list', 
       color: '#1890ff'
     },
     {
-      title: 'PHÁT HÀNH VĂN BẰNG CHỨNG CHỈ',
+      title: 'PHÁT HÀNH VĂN BẰNG',
       path: '/university/certificate/issue',
       color: '#1890ff'
     }

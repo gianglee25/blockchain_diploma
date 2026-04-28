@@ -95,9 +95,7 @@ const Login = () => {
         }}
       >
         <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-          <Title level={3} style={{ marginBottom: '8px' }}>Chào mừng trở lại</Title>
-          <Text type="secondary">Vui lòng đăng nhập để tiếp tục hệ thống</Text>
-        </div>
+<Title level={4} type="secondary">VUI LÒNG ĐĂNG NHẬP ĐỂ TIẾP TỤC HỆ THỐNG</Title>        </div>
 
         <Tabs
           defaultActiveKey="student"
@@ -105,12 +103,12 @@ const Login = () => {
           items={[
             {
               key: 'student',
-              label: 'Sinh viên / Học viên',
+              label: 'Sinh viên',
               children: renderLoginForm('student'),
             },
             {
               key: 'university',
-              label: 'Nhà trường / Trung tâm',
+              label: 'Nhà trường',
               children: renderLoginForm('university'),
             },
           ]}

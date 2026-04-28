@@ -14,7 +14,7 @@ const CertificateList = () => {
     { title: 'Họ Tên', dataIndex: 'fullName', key: 'fullName', width: 150 },
     { title: 'Ngày sinh', dataIndex: 'dob', key: 'dob', width: 110 },
     { title: 'Email', dataIndex: 'email', key: 'email', width: 200 },
-    { title: 'Loại VBCC', dataIndex: 'certType', key: 'certType', width: 120 },
+    { title: 'Loại Văn bằng ', dataIndex: 'certType', key: 'certType', width: 120 },
     { title: 'Nơi cấp', dataIndex: 'provider', key: 'provider', width: 150 },
     { title: 'Ngày cấp', dataIndex: 'issueDate', key: 'issueDate', width: 110 },
     { title: 'Số hiệu', dataIndex: 'certNo', key: 'certNo', width: 150 },
@@ -62,7 +62,7 @@ const CertificateList = () => {
     <div style={{ background: '#fff', padding: '24px', borderRadius: '8px' }}>
       {/* Tiêu đề xanh dương */}
       <Title level={3} style={{ textAlign: 'center', color: '#1890ff', marginBottom: 30 }}>
-        DANH SÁCH VĂN BẰNG CHỨNG CHỈ
+        DANH SÁCH VĂN BẰNG 
       </Title>
 
       {/* Dòng điều khiển: Nút Import và Ô Tìm kiếm */}

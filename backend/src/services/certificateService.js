@@ -1,51 +1,63 @@
-import xlsx from 'xlsx';
-import { v4 as uuidv4 } from 'uuid';
-import Certificate from '../models/Certificate.js';
-import { DIPLOMA_STATUS } from '../utils/constants.js';
+'use strict';
 
-// Hàm phụ để xử lý ngày tháng (Helper function)
-const formatExcelDate = (dateInput) => {
-    if (!dateInput) return "";
-    if (!isNaN(dateInput)) {
-        const date = xlsx.SSF.parse_date_code(dateInput);
-        return `${date.d}/${date.m}/${date.y}`;
-    }
-    return dateInput;
-};
+import { Gateway,Wallets } from 'fabric-network';
+import path from 'path';
+import fs from 'fs';
 
-// Hàm phụ lấy Họ tên (Helper function)
-const getFullName = (row) => {
-    const full = row['Họ và tên người học'] || row['Họ và tên'] || row['Họ vả tên'];
-    if (full) return full;
-    const hoDem = row['Họ Đệm'] || row['Họ đệm'] || "";
-    const ten = row['Tên'] || "";
-    return `${hoDem} ${ten}`.trim() || "N/A";
-};
+// Cấu hình đường dẫn
+const ccpPath = path.resolve(process.cwd(), 'src', 'config', 'connection-org1.json');
+const walletPath = path.join(process.cwd(), 'wallet');
 
-export const processExcelImport = async (fileBuffer) => {
-    // 1. Đọc dữ liệu thô
-    const workbook = xlsx.read(fileBuffer, { type: 'buffer' });
-    const sheetName = workbook.SheetNames[0];
-    const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+/**
+ * Hàm khởi tạo kết nối Gateway
+ */
+async function getContract() {
+    const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
 
-    if (sheetData.length === 0) {
-        throw new Error('File Excel không có dữ liệu');
+    // Kiểm tra danh tính appUser
+    const identity = await wallet.get('appUser');
+    if (!identity) {
+        throw new Error('Danh tính "appUser" chưa tồn tại trong wallet. Hãy chạy registerUser.js');
     }
 
-    // 2. Chuyển đổi dữ liệu chuẩn
-    const certificatesToInsert = sheetData.map((row) => ({
-        uuid: uuidv4(),
-        mssv: String(row['Mã sinh viên'] || row['Mã SV'] || row['MSSV'] || "N/A"),
-        fullName: getFullName(row),
-        dob: formatExcelDate(row['Ngày sinh'] || row['Ngày tháng năm sinh '] || row['Ngày tháng năm sinh']),
-        gender: row['Giới tính'] || row['Giới tính '] || "",
-        major: row['Ngành đào tạo'] || row['Ngành \ntốt nghiệp'] || row['Ngành tốt nghiệp'] || "",
-        grade: row['Xếp loại tốt nghiệp'] || row['Xếp loại TN'] || row['Xếp loại \ntốt nghiệp'] || "",
-        certNo: String(row['Số hiệu văn bằng'] || row['Số hiệu'] || ""),
-        regNo: String(row['Số vào sổ gấp cấp bằng'] || row['Số vào sổ'] || ""),
-        status: DIPLOMA_STATUS.PENDING
-    }));
+    // Thiết lập Gateway
+    const gateway = new Gateway();
+    await gateway.connect(ccp, {
+        wallet,
+        identity: 'appUser',
+        discovery: { enabled: true, asLocalhost: true } // asLocalhost: true vì đang chạy Docker ở máy tính cá nhân
+    });
 
-    // 3. Tương tác với Database
-    return await Certificate.insertMany(certificatesToInsert);
+    // Lấy Network và Contract
+    const network = await gateway.getNetwork('diplomachannel');
+    const contract = network.getContract('educert');
+
+    return { contract, gateway };
+}
+
+/**
+ * Đọc dữ liệu văn bằng (Query)
+ */
+exports.getDiploma = async (diplomaId) => {
+    const { contract, gateway } = await getContract();
+    try {
+        const result = await contract.evaluateTransaction('readDiploma', diplomaId);
+        return JSON.parse(result.toString());
+    } finally {
+        gateway.disconnect(); // Luôn đóng kết nối để giải phóng tài nguyên
+    }
+};
+
+/**
+ * Tạo văn bằng mới (Invoke)
+ */
+exports.createDiploma = async (diplomaId, studentName, major, issueDate) => {
+    const { contract, gateway } = await getContract();
+    try {
+        await contract.submitTransaction('createDiploma', diplomaId, studentName, major, issueDate);
+        return { success: true, message: 'Đã cấp văn bằng thành công trên Blockchain' };
+    } finally {
+        gateway.disconnect();
+    }
 };
